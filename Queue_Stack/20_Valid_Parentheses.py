@@ -29,7 +29,7 @@ Input: s = "([])"
 Output: true
 """
 
-class Solution(object):
+class Solution1(object):
     def isValid(self, s):
         """
         :type s: str
@@ -53,12 +53,12 @@ class Solution(object):
                     return False
         return len(stack) == 0
     
-solution = Solution()
-s1 = "({[})]"
-result = solution.isValid(s1)
-print(result)
+# solution1 = Solution1()
+# s1 = "({[})]"
+# result = solution1.isValid(s1)
+# print(result)
 
-class Solution(object):
+class Solution3(object):
     def isValid(self, s):
         """
         :type s: str
@@ -72,3 +72,35 @@ class Solution(object):
             elif len(stack) == 0 or d[stack.pop()] != i:  # 2
                 return False
         return len(stack) == 0 # 3
+
+
+class Solution2(object):
+    def isValid(self, s: str) -> bool: 
+        # 使用 stack 來幫助做配對檢查 
+        # 宣告一個可以 mapping 檢查的 map
+        stack = [] 
+        bracket_map = {'(': ')', '[': ']', '{': '}'} 
+
+        for char in s: 
+            if char in bracket_map: 
+                stack.append(char) 
+            else: 
+                # 檢查當前遇到的閉括號是否和堆疊中最後一個開括號相匹配
+                # 其實就是要藉由這個Stack去確認順序
+                if not stack or bracket_map[stack.pop()] != char: 
+                    return False 
+        return len(stack) == 0 
+
+ 
+solution2 = Solution2()
+s1 = "({[})]"
+result1 = solution2.isValid(s1)
+print(result1)
+
+s2 = ")("
+result2 = solution2.isValid(s2)
+print(result2)
+
+s3 = "()[]{}"
+result3 = solution2.isValid(s3)
+print(result3)
